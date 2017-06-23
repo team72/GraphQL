@@ -8,17 +8,12 @@ import graphql.schema.idl.EnumValuesProvider;
 
 public class StarWarsData {
 
-	public static DataFetcher getFriendsDataFetcher() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public static TypeResolver getCharacterTypeResolver() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static Object getArtoo() {
+	public static DataFetcher getFriendsDataFetcher() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -28,17 +23,27 @@ public class StarWarsData {
 		return null;
 	}
 
+	public static Object getArtoo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public static DataFetcher getDroidDataFetcher() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public static EnumValuesProvider getEpisodeResolver() {
-		// TODO Auto-generated method stub
+	public static DataFetcher getHeroDataFetcher() {
+		
+		
 		return null;
 	}
+	
+//	public class HumanDataFetcher implements DataFetcher {
+//	    return null;
+//	}
 
-	public static DataFetcher getHeroDataFetcher() {
+	public static EnumValuesProvider getEpisodeResolver() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -157,13 +162,14 @@ public class StarWarsData {
 //        }
 //    }
 //
-//    static DataFetcher heroDataFetcher = new DataFetcher() {
-//        @Override
-//        public Object get(DataFetchingEnvironment environment) {
-//            if (environment.containsArgument("episode")
-//                    && 5 == environment.getArgument("episode")) return luke;
-//            return artoo;
-//        }
-//    }
+//	static DataFetcher heroDataFetcher = new DataFetcher() {
+//		@Override
+//		public Object get(DataFetchingEnvironment environment) {
+//			if (environment.containsArgument("episode")
+//					&& 5 == environment.getArgument("episode")) return luke;
+//			return artoo;
+//		}
+//	}
+
 
 }
