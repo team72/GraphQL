@@ -1,5 +1,25 @@
 package example.http;
 
+import static graphql.ExecutionInput.newExecutionInput;
+import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.eclipse.jetty.server.Request;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.AbstractHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import graphql.ExecutionInput;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
@@ -9,22 +29,6 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.eclipse.jetty.server.Request;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.AbstractHandler;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.HashMap;
-import java.util.Map;
-
-import static graphql.ExecutionInput.newExecutionInput;
-import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 /**
  * An very simple example of serving a qraphql schema over http.
@@ -33,6 +37,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
  */
 public class HttpMain extends AbstractHandler {
 
+	private static final Logger log = LoggerFactory.getLogger(HttpMain.class);
     static final int PORT = 3000;
     static GraphQLSchema starWarsSchema = null;
 
@@ -44,7 +49,7 @@ public class HttpMain extends AbstractHandler {
         // In Jetty, handlers are how your get called backed on a request
         server.setHandler(new HttpMain());
         server.start();
-
+        log.info("--- server has started ---");
         server.join();
     }
 
@@ -129,22 +134,22 @@ public class HttpMain extends AbstractHandler {
             //
             RuntimeWiring wiring = RuntimeWiring.newRuntimeWiring()
                     .type(newTypeWiring("Query")
-                            .dataFetcher("hero", StarWarsData.getHeroDataFetcher())
+//                            .dataFetcher("hero", StarWarsData.getHeroDataFetcher())
                             .dataFetcher("human", StarWarsData.getHumanDataFetcher())
-                            .dataFetcher("droid", StarWarsData.getDroidDataFetcher())
+//                            .dataFetcher("droid", StarWarsData.getDroidDataFetcher())
                     )
                     .type(newTypeWiring("Human")
-                            .dataFetcher("friends", StarWarsData.getFriendsDataFetcher())
+//                            .dataFetcher("friends", StarWarsData.getFriendsDataFetcher())
                     )
                     .type(newTypeWiring("Droid")
-                            .dataFetcher("friends", StarWarsData.getFriendsDataFetcher())
+//                            .dataFetcher("friends", StarWarsData.getFriendsDataFetcher())
                     )
 
                     .type(newTypeWiring("Character")
-                            .typeResolver(StarWarsData.getCharacterTypeResolver())
+//                            .typeResolver(StarWarsData.getCharacterTypeResolver())
                     )
                     .type(newTypeWiring("Episode")
-                            .enumValues(StarWarsData.getEpisodeResolver())
+//                            .enumValues(StarWarsData.getEpisodeResolver())
                     )
                     .build();
 
