@@ -24,8 +24,9 @@ public class StarWarsData {
 	}
 
 	public static DataFetcher getHumanDataFetcher() {
-		// TODO Auto-generated method stub
-		return null;
+//		HumanDataFetcher human = new HumanDataFetcher();
+		
+		return new HumanDataFetcher();
 	}
 
 	public static DataFetcher getDroidDataFetcher() {
@@ -164,6 +165,6 @@ public class StarWarsData {
 //                    && 5 == environment.getArgument("episode")) return luke;
 //            return artoo;
 //        }
-//    }
+//    };
 
 }
