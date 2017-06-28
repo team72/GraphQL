@@ -121,7 +121,7 @@ public class HttpMain extends AbstractHandler {
         // to manage that lifecycle.
         //
         if (starWarsSchema == null) {
-
+        	log.info("inizialize starWarsSchema ");
             //
             // reads a file that provides the schema types
             //
@@ -146,7 +146,7 @@ public class HttpMain extends AbstractHandler {
                     )
 
                     .type(newTypeWiring("Character")
-//                            .typeResolver(StarWarsData.getCharacterTypeResolver())
+                            .typeResolver(StarWarsData.getCharacterTypeResolver())
                     )
                     .type(newTypeWiring("Episode")
 //                            .enumValues(StarWarsData.getEpisodeResolver())
