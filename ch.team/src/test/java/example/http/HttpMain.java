@@ -142,14 +142,8 @@ public class HttpMain extends AbstractHandler {
 							// StarWarsData.getHeroDataFetcher())
 							.dataFetcher("human", StarWarsData.getHumanDataFetcher())
 							.dataFetcher("droid", StarWarsData.getDroidDataFetcher()))
-					.type(newTypeWiring("Human")
-					// .dataFetcher("friends",
-					// StarWarsData.getFriendsDataFetcher())
-					).type(newTypeWiring("Droid")
-					// .dataFetcher("friends",
-					// StarWarsData.getFriendsDataFetcher())
-					)
-
+					.type(newTypeWiring("Human").dataFetcher("friends", StarWarsData.getFriendsDataFetcher()))
+					.type(newTypeWiring("Droid").dataFetcher("friends", StarWarsData.getFriendsDataFetcher()))
 					.type(newTypeWiring("Character").typeResolver(StarWarsData.getCharacterTypeResolver()))
 					.type(newTypeWiring("Episode").enumValues(StarWarsData.getEpisodeResolver())).build();
 

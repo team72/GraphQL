@@ -9,6 +9,8 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -108,8 +110,27 @@ public class StarWarsData {
 		return droidData;
 	}
 
-	public static DataFetcher getFriendsDataFetcher() {
-		// TODO Auto-generated method stub
+	public static DataFetcher<Set<Character>> getFriendsDataFetcher() {
+		DataFetcher<Set<Character>> friendsFetcher = new DataFetcher<Set<Character>>() {
+			@Override
+			public Set<Character> get(DataFetchingEnvironment environment) {
+				Character character = environment.getSource();
+				return character.friends().stream() //
+						.map(id -> getCharacter(id)) //
+						.collect(Collectors.toSet());
+			}
+		};
+
+		return friendsFetcher;
+	}
+
+	private static Character getCharacter(String id) {
+		if (humanData.containsKey(id)) {
+			return humanData.get(id);
+		}
+		if (droidData.containsKey(id)) {
+			return droidData.get(id);
+		}
 		return null;
 	}
 
@@ -117,11 +138,10 @@ public class StarWarsData {
 		TypeResolver tr = new TypeResolver() {
 			@Override
 			public GraphQLObjectType getType(TypeResolutionEnvironment env) {
-				String id = env.getObject().toString();
-				if (humanData.containsKey(id)) {
+				if (env.getObject() instanceof Human) {
 					return StarWarsSchema.humanType;
 				}
-				if (droidData.containsKey(id)) {
+				if (env.getObject() instanceof Droid) {
 					return StarWarsSchema.droidType;
 				}
 				return null;
