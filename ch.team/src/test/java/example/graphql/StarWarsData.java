@@ -29,7 +29,7 @@ public class StarWarsData {
 
 	private static final Human LUKE = new Human(//
 			"1000", //
-			"luke", //
+			"Luke Skywalker", //
 			new HashSet<>(asList("1002", "1003", "2000", "2001")), //
 			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
 			"Tatooine" //
