@@ -149,7 +149,7 @@ public class HttpMain extends AbstractHandler {
                             .typeResolver(StarWarsData.getCharacterTypeResolver())
                     )
                     .type(newTypeWiring("Episode")
-//                            .enumValues(StarWarsData.getEpisodeResolver())
+                            .enumValues(StarWarsData.getEpisodeResolver())
                     )
                     .build();
 

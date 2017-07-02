@@ -12,6 +12,7 @@ import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.TypeResolver;
 import graphql.schema.idl.EnumValuesProvider;
+import graphql.schema.idl.NaturalEnumValuesProvider;
 
 public class StarWarsData {
 
@@ -64,8 +65,7 @@ public class StarWarsData {
 	}
 
 	public static EnumValuesProvider getEpisodeResolver() {
-		// TODO Auto-generated method stub
-		return null;
+		return new NaturalEnumValuesProvider<>(Episode.class);
 	}
 
 	public static DataFetcher getHeroDataFetcher() {
