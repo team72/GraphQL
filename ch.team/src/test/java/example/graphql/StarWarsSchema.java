@@ -1,4 +1,4 @@
-package graphql;
+package example.graphql;
 
 
 import graphql.schema.*;

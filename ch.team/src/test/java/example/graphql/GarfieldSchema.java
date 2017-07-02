@@ -1,6 +1,7 @@
-package graphql;
+package example.graphql;
 
 
+import graphql.TypeResolutionEnvironment;
 import graphql.schema.*;
 
 import java.util.ArrayList;

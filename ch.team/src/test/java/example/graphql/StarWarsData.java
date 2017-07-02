@@ -1,12 +1,18 @@
-package graphql;
+package example.graphql;
+
+import static example.graphql.Episode.EMPIRE;
+import static example.graphql.Episode.JEDI;
+import static example.graphql.Episode.NEWHOPE;
+import static java.util.Arrays.asList;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import example.http.HttpMain;
-import graphql.GarfieldSchema.Cat;
-import graphql.GarfieldSchema.Dog;
-import graphql.GarfieldSchema.Person;
+import graphql.TypeResolutionEnvironment;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 import graphql.schema.GraphQLObjectType;
@@ -17,6 +23,37 @@ import graphql.schema.idl.NaturalEnumValuesProvider;
 public class StarWarsData {
 
 	private static final Logger log = LoggerFactory.getLogger(StarWarsData.class);
+
+	private static final Human LUKE = new Human(//
+			"1000", //
+			"luke", //
+			new HashSet<>(asList("1002", "1003", "2000", "2001")), //
+			new HashSet<>(asList(NEWHOPE, EMPIRE, JEDI)), //
+			"Tatooine" //
+	);
+
+	private static final Human VADER = null;
+
+	private static final Human HAN = null;
+
+	private static final Human LEIA = null;
+
+	private static final Human TARKIN = null;
+
+	/**
+	 * key: id
+	 */
+	private static final Map<String, Human> humanData = initHumanData();
+
+	private static Map<String, Human> initHumanData() {
+		Map<String, Human> humanData = new HashMap<>();
+		humanData.put("1000", LUKE);
+		humanData.put("1001", VADER);
+		humanData.put("1002", HAN);
+		humanData.put("1003", LEIA);
+		humanData.put("1004", TARKIN);
+		return humanData;
+	}
 
 	public static DataFetcher getFriendsDataFetcher() {
 		// TODO Auto-generated method stub
@@ -34,7 +71,7 @@ public class StarWarsData {
 
 			}
 		};
-		
+
 		return tr;
 	}
 
@@ -43,16 +80,13 @@ public class StarWarsData {
 		return null;
 	}
 
-	public static DataFetcher getHumanDataFetcher() {
+	public static DataFetcher<Human> getHumanDataFetcher() {
 
-		DataFetcher humanDataFetcher = new DataFetcher() {
+		DataFetcher<Human> humanDataFetcher = new DataFetcher<Human>() {
 			@Override
-			public Object get(DataFetchingEnvironment environment) {
+			public Human get(DataFetchingEnvironment environment) {
 				String id = environment.getArgument("id");
-				String mockData = "Luke" + id;
-				log.info("--- Test " + mockData);
-
-				return mockData;
+				return humanData.get(id);
 			}
 		};
 

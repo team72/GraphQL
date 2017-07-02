@@ -1,6 +1,7 @@
-package graphql;
+package example.graphql;
 
 
+import graphql.GraphQL;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
 import org.junit.Test;

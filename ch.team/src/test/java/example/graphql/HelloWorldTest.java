@@ -1,4 +1,4 @@
-package graphql;
+package example.graphql;
 
 import static graphql.Scalars.GraphQLString;
 import static graphql.schema.GraphQLFieldDefinition.newFieldDefinition;
@@ -6,6 +6,7 @@ import static graphql.schema.GraphQLObjectType.newObject;
 
 import java.util.Map;
 
+import graphql.GraphQL;
 import graphql.schema.DataFetcher;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
