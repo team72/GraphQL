@@ -17,22 +17,22 @@ abstract class BaseCharacter implements Character {
 	}
 
 	@Override
-	public String id() {
+	public String getId() {
 		return id;
 	}
 
 	@Override
-	public String name() {
+	public String getName() {
 		return name;
 	}
 
 	@Override
-	public Set<String> friends() {
+	public Set<String> getFriends() {
 		return friends;
 	}
 
 	@Override
-	public Set<Episode> appearsIn() {
+	public Set<Episode> getAppearsIn() {
 		return appearsIn;
 	}
 

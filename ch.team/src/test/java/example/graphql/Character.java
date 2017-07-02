@@ -4,14 +4,14 @@ import java.util.Set;
 
 public interface Character {
 
-	String id();
+	String getId();
 
-	String name();
+	String getName();
 
 	/**
 	 * @return Set of Ids.
 	 */
-	Set<String> friends();
+	Set<String> getFriends();
 
-	Set<Episode> appearsIn();
+	Set<Episode> getAppearsIn();
 }

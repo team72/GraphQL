@@ -115,7 +115,7 @@ public class StarWarsData {
 			@Override
 			public Set<Character> get(DataFetchingEnvironment environment) {
 				Character character = environment.getSource();
-				return character.friends().stream() //
+				return character.getFriends().stream() //
 						.map(id -> getCharacter(id)) //
 						.collect(Collectors.toSet());
 			}
