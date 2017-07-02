@@ -5,6 +5,7 @@ import static example.graphql.Episode.JEDI;
 import static example.graphql.Episode.NEWHOPE;
 import static java.util.Arrays.asList;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class StarWarsData {
 			"1000", //
 			"luke", //
 			new HashSet<>(asList("1002", "1003", "2000", "2001")), //
-			new HashSet<>(asList(NEWHOPE, EMPIRE, JEDI)), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
 			"Tatooine" //
 	);
 
