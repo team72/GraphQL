@@ -33,13 +33,53 @@ public class StarWarsData {
 			"Tatooine" //
 	);
 
-	private static final Human VADER = null;
+	private static final Human VADER = new Human(//
+			"1001", //
+			"Darth Vader", //
+			new HashSet<>(asList("1004")), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
+			"Tatooine" //
+	);
 
-	private static final Human HAN = null;
+	private static final Human HAN = new Human(//
+			"1002", //
+			"Han Solo", //
+			new HashSet<>(asList("1000", "1003", "2001")), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
+			null //
+	);
 
-	private static final Human LEIA = null;
+	private static final Human LEIA = new Human(//
+			"1003", //
+			"Leia Organa", //
+			new HashSet<>(asList("1000", "1002", "2000", "2001")), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
+			"Alderaan" //
+	);
 
-	private static final Human TARKIN = null;
+	private static final Human TARKIN = new Human(//
+			"1004", //
+			"Wilhuff Tarkin", //
+			new HashSet<>(asList("1001")), //
+			EnumSet.of(NEWHOPE), //
+			null //
+	);
+
+	private static final Droid THREEPIO = new Droid(//
+			"2000", //
+			"C-3PO", //
+			new HashSet<>(asList("1000", "1002", "1003", "2001")), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
+			"Protocol" //
+	);
+
+	private static final Droid ARTOO = new Droid(//
+			"2001", //
+			"R2-D2", //
+			new HashSet<>(asList("1000", "1002", "1003")), //
+			EnumSet.of(NEWHOPE, EMPIRE, JEDI), //
+			"Astromech" //
+	);
 
 	/**
 	 * key: id
@@ -54,6 +94,18 @@ public class StarWarsData {
 		humanData.put("1003", LEIA);
 		humanData.put("1004", TARKIN);
 		return humanData;
+	}
+
+	/**
+	 * key: id
+	 */
+	private static final Map<String, Droid> droidData = initDroidData();
+
+	private static Map<String, Droid> initDroidData() {
+		Map<String, Droid> droidData = new HashMap<>();
+		droidData.put("2000", THREEPIO);
+		droidData.put("2001", ARTOO);
+		return droidData;
 	}
 
 	public static DataFetcher getFriendsDataFetcher() {
@@ -95,8 +147,16 @@ public class StarWarsData {
 	}
 
 	public static DataFetcher getDroidDataFetcher() {
-		// TODO Auto-generated method stub
-		return null;
+
+		DataFetcher<Droid> droidDataFetcher = new DataFetcher<Droid>() {
+			@Override
+			public Droid get(DataFetchingEnvironment environment) {
+				String id = environment.getArgument("id");
+				return droidData.get(id);
+			}
+		};
+
+		return droidDataFetcher;
 	}
 
 	public static EnumValuesProvider getEpisodeResolver() {
