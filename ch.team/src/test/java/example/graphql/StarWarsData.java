@@ -146,7 +146,7 @@ public class StarWarsData {
 		return humanDataFetcher;
 	}
 
-	public static DataFetcher getDroidDataFetcher() {
+	public static DataFetcher<Droid> getDroidDataFetcher() {
 
 		DataFetcher<Droid> droidDataFetcher = new DataFetcher<Droid>() {
 			@Override
