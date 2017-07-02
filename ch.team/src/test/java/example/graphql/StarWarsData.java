@@ -114,14 +114,17 @@ public class StarWarsData {
 	}
 
 	public static TypeResolver getCharacterTypeResolver() {
-		// TODO Auto-generated method stub
 		TypeResolver tr = new TypeResolver() {
 			@Override
 			public GraphQLObjectType getType(TypeResolutionEnvironment env) {
 				String id = env.getObject().toString();
-
-				return StarWarsSchema.humanType;
-
+				if (humanData.containsKey(id)) {
+					return StarWarsSchema.humanType;
+				}
+				if (droidData.containsKey(id)) {
+					return StarWarsSchema.droidType;
+				}
+				return null;
 			}
 		};
 
