@@ -5,12 +5,16 @@ import static example.graphql.Episode.JEDI;
 import static example.graphql.Episode.NEWHOPE;
 import static java.util.Arrays.asList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,13 +160,37 @@ public class StarWarsData {
 		return null;
 	}
 
+	/**
+	 * http://localhost:3000/graphql?query={human{name}}
+	 * http://localhost:3000/graphql?query={human(id:"1000"){name}}
+	 * http://localhost:3000/graphql?query={human(id:"1000"){homePlanet}}
+	 * 
+	 * @return
+	 */
 	public static DataFetcher<Human> getHumanDataFetcher() {
 
 		DataFetcher<Human> humanDataFetcher = new DataFetcher<Human>() {
 			@Override
 			public Human get(DataFetchingEnvironment environment) {
 				String id = environment.getArgument("id");
-				return humanData.get(id);
+				if (id != null) {
+					log.info("get(DataFetchingEnvironment environment) id= " + id);
+					return humanData.get(id);
+
+				} else if (environment.getArgument("name") != null) {
+					String name = environment.getArgument("name");
+					log.info("get(DataFetchingEnvironment environment) name= " + name);
+
+					Human h = humanData.values().stream()
+							.filter(human -> human.getName().equals(name))
+							.findFirst()
+							.orElse(null);
+
+					return h;
+
+				} else {
+					return humanData.get("1002");
+				}
 			}
 		};
 
@@ -180,6 +208,23 @@ public class StarWarsData {
 		};
 
 		return droidDataFetcher;
+	}
+
+	public static DataFetcher<List<Human>> getHumansDataFetcher() {
+
+		DataFetcher<List<Human>> humanDataFetcher = new DataFetcher<List<Human>>() {
+			@Override
+			public List<Human> get(DataFetchingEnvironment environment) {
+				String id = environment.getArgument("id");
+				if (id == null) {
+					return new ArrayList<>(humanData.values());
+				} else {
+					return Arrays.asList(humanData.get(id));
+				}
+			}
+		};
+
+		return humanDataFetcher;
 	}
 
 	public static EnumValuesProvider getEpisodeResolver() {
