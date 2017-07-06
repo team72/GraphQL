@@ -5,16 +5,13 @@ import static example.graphql.Episode.JEDI;
 import static example.graphql.Episode.NEWHOPE;
 import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -197,6 +194,16 @@ public class StarWarsData {
 		return humanDataFetcher;
 	}
 
+	public static DataFetcher<Collection<Human>> getHumansDataFetcher() {
+		DataFetcher<Collection<Human>> humansDataFetcher = new DataFetcher<Collection<Human>>() {
+			@Override
+			public Collection<Human> get(DataFetchingEnvironment environment) {
+				return humanData.values();
+			}
+		};
+		return humansDataFetcher;
+	}
+
 	public static DataFetcher<Droid> getDroidDataFetcher() {
 
 		DataFetcher<Droid> droidDataFetcher = new DataFetcher<Droid>() {
@@ -208,23 +215,6 @@ public class StarWarsData {
 		};
 
 		return droidDataFetcher;
-	}
-
-	public static DataFetcher<List<Human>> getHumansDataFetcher() {
-
-		DataFetcher<List<Human>> humanDataFetcher = new DataFetcher<List<Human>>() {
-			@Override
-			public List<Human> get(DataFetchingEnvironment environment) {
-				String id = environment.getArgument("id");
-				if (id == null) {
-					return new ArrayList<>(humanData.values());
-				} else {
-					return Arrays.asList(humanData.get(id));
-				}
-			}
-		};
-
-		return humanDataFetcher;
 	}
 
 	public static EnumValuesProvider getEpisodeResolver() {

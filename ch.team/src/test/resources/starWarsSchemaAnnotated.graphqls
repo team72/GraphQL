@@ -23,6 +23,8 @@ type Query {
         name : String
     ) : Human
 
+	humans : [Human]
+	
     droid(
         # The non null id of the droid you are interested in
         id: ID!

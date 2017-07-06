@@ -141,6 +141,7 @@ public class HttpMain extends AbstractHandler {
 							// .dataFetcher("hero",
 							// StarWarsData.getHeroDataFetcher())
 							.dataFetcher("human", StarWarsData.getHumanDataFetcher())
+							.dataFetcher("humans", StarWarsData.getHumansDataFetcher())
 							.dataFetcher("droid", StarWarsData.getDroidDataFetcher()))
 					.type(newTypeWiring("Human").dataFetcher("friends", StarWarsData.getFriendsDataFetcher()))
 					.type(newTypeWiring("Droid").dataFetcher("friends", StarWarsData.getFriendsDataFetcher()))
